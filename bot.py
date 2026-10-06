@@ -6,6 +6,7 @@ import discord
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 CHANNEL_ID = int(os.getenv("CHANNEL_ID", "0"))
+WELCOME_CHANNEL_ID = int(os.getenv("WELCOME_CHANNEL_ID", "0"))
 
 # أوقات بداية SvS بتوقيت UTC
 # مثال: 18:00,22:00
@@ -14,7 +15,8 @@ SVS_TIMES = [
     if x.strip()
 ]
 
-intents = discord.Intents.none()
+intents = discord.Intents.default()
+intents.members = True
 client = discord.Client(intents=intents)
 
 sent_reminders = set()
@@ -82,7 +84,22 @@ async def svs_scheduler():
 
         await asyncio.sleep(20)
 
-
+@client.event
+async def on_member_join(member):
+    channel = client.get_channel(WELCOME_CHANNEL_ID)
+    if channel:
+        message = (
+            "☠️ **WELCOME TO MENACE**\n\n"
+            f"👋 Welcome, {member.mention}!\n\n"
+            "⚔️ Respect your teammates.\n"
+            "🤝 Work together.\n"
+            "🎯 Follow the battle plan.\n"
+            "🔥 Stay active.\n"
+            "🏆 Fight for victory.\n\n"
+            "📜 Please read the rules before joining the action.\n\n"
+            "WE ARE MENACE. ☠️"
+        )
+        await channel.send(message)
 @client.event
 async def on_ready():
     print(f"MENACE SVS connected as {client.user}")

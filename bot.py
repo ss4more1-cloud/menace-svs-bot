@@ -72,12 +72,12 @@ async def svs_scheduler():
                         timestamp = int(svs_start.timestamp())
 
                         message = (
-                            "🔔 **MENACE | SvS ALERT**\n\n"
-                            "⚔️ **SvS starts in 5 minutes!**\n\n"
-                            f"🕐 Start time: <t:{timestamp}:F>\n"
-                            f"⏳ <t:{timestamp}:R>\n\n"
-                            "☠️ **MENACE — ENTER THE THREAT.**"
-                        )
+    "🔔 **MENACE | SvS ALERT**\n\n"
+    "⚔️ **SvS starts in 5 minutes!**\n\n"
+    f"Start time: <t:{timestamp}:d>\n"
+    f"⏳ at <t:{timestamp}:t>\n\n"
+    "☠️ **MENACE - SvS time.**"
+)
 
                         await channel.send(message)
                         sent_reminders.add(key)
